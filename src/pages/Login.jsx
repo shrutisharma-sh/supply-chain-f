@@ -1,34 +1,51 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../services/authService";
+import { getUserRole } from "../utils/jwt";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      const response = await loginUser({
-        email,
-        password,
-      });
+  try {
+    const response = await loginUser({
+      email,
+      password,
+    });
 
-      console.log("Login success:", response);
+    const token = response.token;
 
-      
-      localStorage.setItem("token", response.token);
+    
+    localStorage.setItem("token", token);
 
-      
-      navigate("/dashboard");
+    
+    const role = getUserRole(token);
 
-    } catch (error) {
-      console.error("Login failed:", error);
-      alert("Invalid credentials");
-    }
-  };
+    console.log("Role:", role);
+
+    
+    localStorage.setItem("role", role);
+
+    setMessage("Login successful");
+
+    
+    setTimeout(() => {
+      if (role === "ADMIN") navigate("/admin");
+      else if (role === "SUPPLIER") navigate("/supplier");
+      else if (role === "MANAGER") navigate("/manager");
+      else navigate("/dashboard");
+    }, 1000);
+
+  } catch (error) {
+    console.error("Login failed:", error);
+    setMessage("Invalid email or password");
+  }
+};
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
@@ -60,6 +77,17 @@ export default function Login() {
           Login
         </button>
 
+         {message && (
+         <p
+         className={`mt-3 text-center text-sm ${
+          message.includes("successful")
+         ? "text-green-500"
+         : "text-red-500"
+         }`}
+        >
+    {message}
+  </p>
+)}
        
         <p className="text-sm mt-3 text-center">
           Don’t have an account?{" "}

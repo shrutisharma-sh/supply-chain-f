@@ -12,6 +12,7 @@ export default function Register() {
     companyName: ""
   });
 
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -32,11 +33,12 @@ export default function Register() {
     const response = await registerUser(dataToSend);
     console.log("Register success:", response);
     localStorage.setItem("token", response.token);
+    setMessage("Registration successful ");
     navigate("/login");
 
   } catch (error) {
     console.error("Register failed:", error);
-    alert("Registration failed");
+    setMessage("Registration failed");
   }
 };
 
@@ -95,6 +97,17 @@ export default function Register() {
         <button className="w-full bg-blue-500 text-white p-2">
           Register
         </button>
+        {message && (
+  <p
+    className={`mt-3 text-center text-sm ${
+      message.includes("successful")
+        ? "text-green-500"
+        : "text-red-500"
+    }`}
+  >
+    {message}
+  </p>
+)}
       </form>
     </div>
   );
