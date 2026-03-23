@@ -71,7 +71,7 @@ const SupplierProducts = () => {
             </button>
            <button
   onClick={() =>
-    navigate("/add-product", { state: { product: p } })
+    navigate("/supplier/add-product", { state: { product: p } })
   }
   className="mt-2 bg-yellow-500 text-white px-3 py-1 rounded mr-2"
 >

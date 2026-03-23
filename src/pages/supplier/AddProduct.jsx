@@ -100,7 +100,7 @@ const AddProduct = () => {
         alert("Product added");
       }
 
-      navigate("/supplier-products");
+      navigate("/supplier/products");
     } catch (err) {
       console.error(err);
       alert("Operation failed: " + (err.response?.data?.message || err.message));

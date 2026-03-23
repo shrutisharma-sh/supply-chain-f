@@ -4,7 +4,7 @@ import Register from "./pages/Register";
 import Home from "./pages/Home";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Products from "./pages/Products";
-
+import Navbar from "./components/Navbar";
 
 import SupplierDashboard from "./pages/supplier/SupplierDashboard";
 import AddProduct from "./pages/supplier/AddProduct";
@@ -19,7 +19,10 @@ const Dashboard = () => <h2>User Dashboard</h2>;
 function App() {
   return (
     <BrowserRouter>
+       
+     <Navbar /> 
       <Routes>
+        
         
         {/* for public */}
          <Route path="/" element={<Home />} />
@@ -46,14 +49,6 @@ function App() {
 >
   <Route path="products" element={<SupplierProducts />} />
   <Route path="add-product" element={<AddProduct />} />
-  <Route
-  path="/supplier-products"
-  element={
-    <ProtectedRoute allowedRoles={["SUPPLIER"]}>
-      <SupplierProducts />
-    </ProtectedRoute>
-  }
-/>
 </Route>
 
 <Route
