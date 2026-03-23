@@ -25,6 +25,11 @@ export default function Home() {
           </button>
         )}
       </div>
+      <div className="mt-6">
+  <button onClick={() => navigate("/marketplace")}>
+  Browse Supplier Products
+</button>
+</div>
     </div>
   );
 }

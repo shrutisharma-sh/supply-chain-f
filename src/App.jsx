@@ -9,11 +9,13 @@ import Navbar from "./components/Navbar";
 import SupplierDashboard from "./pages/supplier/SupplierDashboard";
 import AddProduct from "./pages/supplier/AddProduct";
 import SupplierProducts from "./pages/supplier/SupplierProducts";
+import ManagerDashboard from "./pages/manager/ManagerDashboard";
+import ManagerProducts from "./pages/manager/ManagerProducts";
+import AllSupplierProducts from "./pages/AllSupplierProducts";
 
 
 const Admin = () => <h2>Admin Dashboard</h2>;
-const Supplier = () => <h2>Supplier Dashboard</h2>;
-const Manager = () => <h2>Manager Dashboard</h2>;
+
 const Dashboard = () => <h2>User Dashboard</h2>;
 
 function App() {
@@ -28,6 +30,8 @@ function App() {
          <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+
+        <Route path="/marketplace" element={<AllSupplierProducts />} />
         
 {/* auth required routes */}
 <Route
@@ -55,10 +59,12 @@ function App() {
   path="/manager"
   element={
     <ProtectedRoute allowedRoles={["MANAGER"]}>
-      <Manager />
+      <ManagerDashboard />
     </ProtectedRoute>
   }
-/>
+>
+  <Route path="products" element={<ManagerProducts />} />
+</Route>
 
 <Route
   path="/dashboard"

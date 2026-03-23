@@ -68,6 +68,9 @@ const Navbar = () => {
             <button onClick={() => navigate("/manager")}>
               Manager Panel
             </button>
+            <button onClick={() => navigate("/manager/products")}>
+              Pending Products
+            </button>
             <button onClick={handleLogout}>Logout</button>
           </>
         )}
